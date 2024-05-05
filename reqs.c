@@ -6,11 +6,12 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:29:53 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/05/05 13:17:23 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/05/05 15:56:17 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+
 // counts words in a string
 // for the purpose of this exercice, a word may only contain numbers
 // words are separated by one or more spaces
@@ -27,23 +28,23 @@ int	ft_count_words(char *words)
 		if (*words >= '0' && *words <= '9')
 		{
 			if (!in_word)
-				count ++;
+				count++;
 			in_word = 1;
 		}
 		else if (*words == ' ')
 			in_word = 0;
 		else
 			return (-1);
-		words ++;
+		words++;
 	}
 	return (count);
 }
 
-int parse_next_int(char **str)
+int	parse_next_int(char **str)
 {
 	int	in_word;
 	int	num;
-	
+
 	in_word = 0;
 	num = 0;
 	while (**str != '\0')
@@ -61,11 +62,11 @@ int parse_next_int(char **str)
 	return (num);
 }
 
-void parse_reqs(char *words, int side_size, int **out)
+void	parse_reqs(char *words, int side_size, int **out)
 {
-	int	cur_side;
-	int	i;
-	char **bookmark;
+	int		cur_side;
+	int		i;
+	char	**bookmark;
 
 	cur_side = 0;
 	bookmark = &words;
@@ -78,7 +79,6 @@ void parse_reqs(char *words, int side_size, int **out)
 			out[cur_side][i] = parse_next_int(bookmark);
 			i++;
 		}
-		cur_side ++;
+		cur_side++;
 	}
 }
-
