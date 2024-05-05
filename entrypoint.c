@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "utils.c"
 #include "reqs.c"
+#include "solver.c"
 #include <stdio.h>
 
 int	main(int argc, char **argv)
@@ -18,10 +20,11 @@ int	main(int argc, char **argv)
 	int	wc;
 	int	side;
 	int	*reqs[4];
+	int *board;
 
 	if (argc != 2)
 	{
-		printf("error\n");
+		printf("Error\n");
 		return (0);
 	}
 	wc = ft_count_words(argv[1]);
@@ -29,15 +32,14 @@ int	main(int argc, char **argv)
 	if (side != 0 && wc % 4 == 0)
 		printf("costat de %d\n", side);
 	else
-		printf("error\n");
-	parse_reqs(argv[1], side, reqs);
-	printf("reqs:");
-	for (int i = 0; i < 4; i++)
 	{
-		for (int j = 0; j < side; j++)
-		{
-			printf("%d, ", reqs[i][j]);
-		}
-		printf("\n");
+		printf("Error\n");
+		return (0);
 	}
+	parse_reqs(argv[1], side, reqs);
+	board = malloc(4*side*side);
+	fill_array(board, side*side);
+	print_reqs(reqs, side);
+	place_num(board, reqs, 0, side);
+	print_board(board, side);
 }
