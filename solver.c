@@ -6,14 +6,19 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 14:36:42 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/05/05 17:32:55 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/05/05 20:14:06 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "utils.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 // checks if the array has repeated numbers
 // returns 1 if some numbers are repeated, 0 otherwise
 int	repeated(int *array, int size)
 {
+	printf("repe");
 	int	i;
 	int	j;
 	int	*seen_nums;
@@ -44,6 +49,7 @@ int	repeated(int *array, int size)
 // returns a null pointer if given invalid params
 int	*extr_line(int *board, char type, int index, int size)
 {
+	printf("extr");
 	int	i;
 	int	*result;
 
@@ -67,6 +73,7 @@ int	*extr_line(int *board, char type, int index, int size)
 // returns a pointer to the new array
 int	*reverse_array(int *array, int size)
 {
+	printf("rev");
 	int	i;
 	int	*reversed;
 
@@ -86,6 +93,7 @@ int	*reverse_array(int *array, int size)
 // returns how many towers would be visible
 int	check_visible(int *array, int size)
 {
+	printf("ckvis");
 	int	i;
 	int	max_height;
 	int	total;
@@ -108,10 +116,11 @@ int	check_visible(int *array, int size)
 // checks if the correct number of towers are seen
 // returns 1 if the number is correct (or could be correct later on)
 // otherwise returns 0
-int correct_view(int *array, int should_see, int size)
+int	correct_view(int *array, int should_see, int size)
 {
-	int placed;
-	int visible;
+	printf("cv");
+	int	placed;
+	int	visible;
 
 	placed = 0;
 	while (array[placed] != 0 && placed < size)
@@ -130,29 +139,30 @@ int correct_view(int *array, int should_see, int size)
 // returns 1 if valid, 0 otherwise
 int	valid_board(int *board, int **reqs, int pos, int side_size)
 {
+	printf("vbo");
 	int	*row;
-	int	*row_rev;
 	int	*col;
-	int	*col_rev;
 	int	row_num;
 	int	col_num;
 
 	row_num = get_coord('r', pos, side_size);
 	col_num = get_coord('c', pos, side_size);
 	row = extr_line(board, 'r', row_num, side_size);
-	row_rev = reverse_array(row, side_size);
 	col = extr_line(board, 'c', col_num, side_size);
-	col_rev = reverse_array(col, side_size);
 	if (repeated(row, side_size) || repeated(col, side_size))
 		return (0);
 	if (!correct_view(col, reqs[0][col_num], side_size))
 		return (0);
-	if (!correct_view(col_rev, reqs[1][col_num], side_size))
+	if (!correct_view(reverse_array(col, side_size), reqs[1][col_num],
+			side_size))
 		return (0);
 	if (!correct_view(row, reqs[2][row_num], side_size))
 		return (0);
-	if (!correct_view(row_rev, reqs[3][row_num], side_size))
+	if (!correct_view(reverse_array(row, side_size), reqs[3][row_num],
+			side_size))
 		return (0);
+	free(row);
+	free(col);
 	return (1);
 }
 
@@ -161,11 +171,10 @@ int	valid_board(int *board, int **reqs, int pos, int side_size)
 int	place_num(int *board, int **reqs, int pos, int side_size)
 {
 	int	candidate;
-	int next_valid;
+	int	next_valid;
 
 	if (pos == side_size * side_size)
 		return (1);
-	
 	candidate = 1;
 	next_valid = 0;
 	while (candidate <= side_size)
@@ -173,9 +182,7 @@ int	place_num(int *board, int **reqs, int pos, int side_size)
 		print_board(board, side_size);
 		printf("%d", candidate);
 		board[pos] = candidate;
-		if (!valid_board(board, reqs, pos, side_size))
-			continue;
-		else
+		if (valid_board(board, reqs, pos, side_size))
 			next_valid = place_num(board, reqs, pos + 1, side_size);
 		candidate++;
 	}

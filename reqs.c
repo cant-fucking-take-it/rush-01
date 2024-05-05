@@ -6,10 +6,11 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:29:53 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/05/05 15:56:17 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/05/05 20:37:25 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdlib.h>
 
 // counts words in a string
@@ -59,6 +60,7 @@ int	parse_next_int(char **str)
 			break ;
 		*str += 1;
 	}
+	printf("%d\n", num);
 	return (num);
 }
 
@@ -77,6 +79,7 @@ void	parse_reqs(char *words, int side_size, int **out)
 		while (i < side_size)
 		{
 			out[cur_side][i] = parse_next_int(bookmark);
+			printf("%d",out[cur_side][i]);
 			i++;
 		}
 		cur_side++;

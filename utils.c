@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/05 20:03:48 by ecoma-ba          #+#    #+#             */
+/*   Updated: 2024/05/05 20:38:40 by ecoma-ba         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
+
 // calculates and returns the coordinate of a cell's row or column
 // type must be 'r' or 'c', to pick between row and column
 // returns -1 if the input is invalid
@@ -34,25 +47,40 @@ void	fill_array(int *array, int size)
 
 void	print_reqs(int **reqs, int size)
 {
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
 	printf("\n\nreqs:\n");
-	for (int i = 0; i < 4; i++)
+	while (i < 4)
 	{
-		for (int j = 0; j < size; j++)
+		while (j < size)
 		{
-			printf("%d, ", reqs[i][j]);
+			printf("%d, ", *reqs[i*4+j]);
+			j++;
 		}
 		printf("\n");
+		i++;
 	}
 }
+
 void	print_board(int *board, int size)
 {
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
 	printf("\n\nboard:\n");
-	for (int i = 0; i < size; i++)
+	while (i < size)
 	{
-		for (int j = 0; j < size; j++)
+		while (j < size)
 		{
 			printf("%d, ", board[get_pos(i, j, size)]);
+			j++;
 		}
 		printf("\n");
+		i++;
 	}
 }
