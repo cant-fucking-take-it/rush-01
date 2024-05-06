@@ -6,12 +6,12 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:29:53 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/05/05 20:37:25 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/05/06 11:38:27 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 // counts words in a string
 // for the purpose of this exercice, a word may only contain numbers
@@ -55,33 +55,25 @@ int	parse_next_int(char **str)
 			in_word = 1;
 			num *= 10;
 			num += **str - '0';
+			printf("%d\n", num);
 		}
 		else if (**str == ' ' && in_word)
 			break ;
 		*str += 1;
 	}
-	printf("%d\n", num);
 	return (num);
 }
 
-void	parse_reqs(char *words, int side_size, int **out)
+void	parse_reqs(char *words, int side_size, int *out)
 {
-	int		cur_side;
 	int		i;
 	char	**bookmark;
 
-	cur_side = 0;
+	i = 0;
 	bookmark = &words;
-	while (cur_side < 4)
+	while (i < side_size * 4)
 	{
-		out[cur_side] = malloc(4 * side_size);
-		i = 0;
-		while (i < side_size)
-		{
-			out[cur_side][i] = parse_next_int(bookmark);
-			printf("%d",out[cur_side][i]);
-			i++;
-		}
-		cur_side++;
+		out[i] = parse_next_int(bookmark);
+		i++;
 	}
 }

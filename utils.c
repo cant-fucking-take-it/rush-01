@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 20:03:48 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/05/05 20:38:40 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/05/06 11:33:41 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,23 @@ void	fill_array(int *array, int size)
 	while (i < size)
 	{
 		array[i] = 0;
+		i++;
 	}
 }
 
-void	print_reqs(int **reqs, int size)
+void	print_reqs(int *reqs, int size)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	j = 0;
 	printf("\n\nreqs:\n");
 	while (i < 4)
 	{
+		j = 0;
 		while (j < size)
 		{
-			printf("%d, ", *reqs[i*4+j]);
+			printf("%d, ", reqs[i * size + j]);
 			j++;
 		}
 		printf("\n");
@@ -71,10 +72,10 @@ void	print_board(int *board, int size)
 	int	j;
 
 	i = 0;
-	j = 0;
 	printf("\n\nboard:\n");
 	while (i < size)
 	{
+		j = 0;
 		while (j < size)
 		{
 			printf("%d, ", board[get_pos(i, j, size)]);

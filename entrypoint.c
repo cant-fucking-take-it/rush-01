@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:25:11 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/05/05 20:19:58 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/05/06 11:39:07 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int argc, char **argv)
 {
 	int	wc;
 	int	side;
-	int	**reqs;
+	int	*reqs;
 	int	*board;
 
 	if (argc != 2)
@@ -37,14 +37,14 @@ int	main(int argc, char **argv)
 		printf("Error\n");
 		return (0);
 	}
-	reqs = malloc(sizeof(int**));
+	reqs = malloc (4 * wc);
 	parse_reqs(argv[1], side, reqs);
 	print_reqs(reqs, side);
-	printf("aa\n");
-	fill_array(board, side * side);
 	board = malloc(4 * side * side);
+	fill_array(board, side * side);
 	printf("bb\n");
-	place_num(board, reqs, 0, side);
+	int r = place_num(board, reqs, 0, side);
+	printf("r: %d\n", r);
 	print_board(board, side);
 	return (0);
 }
